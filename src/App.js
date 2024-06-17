@@ -1,24 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Login from "./pages/auth/login";
+import SignUp from "./pages/auth/signup";
+import Onboarding from "./pages/onboarding/onboarding";
+import ProgressTracker from "./pages/homePages/progressTracker";
+import { AuthContextProvider } from "./context/authContext";
+import DailyMotivation from "./pages/homePages/dailyMotivations";
+import Resources from "./pages/homePages/resources";
+import Feedback from "./pages/homePages/feedback";
+import Layout from "./components/layout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AuthContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Layout>
+                  <ProgressTracker />
+                </Layout>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route
+              path="/motivations"
+              element={
+                <Layout>
+                  <DailyMotivation />
+                </Layout>
+              }
+            />
+            <Route
+              path="/resources"
+              element={
+                <Layout>
+                  <Resources />
+                </Layout>
+              }
+            />
+            <Route
+              path="/feedback"
+              element={
+                <Layout>
+                  <Feedback />
+                </Layout>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </AuthContextProvider>
+    </>
   );
 }
 
